@@ -1,0 +1,72 @@
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~....~~~~~~~~~~~~~~~~~~
+	~~ GNU3 :: Open APIs with a source to solutions ~~~~~~~~~~~~
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~......~~~~~~~~~~~~~~~~
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~....~~~~~~~~~~~~~~~
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	~~~~~~~~~~~~~~~~~~~~~~~~:::::::::::~~~.~~~~~~~~~~~~~~~~~~~~~
+	~~~~~~~~~~~~~~~~~~~~~::::::::::::::::::...~~~~~~~~~~~~~~~~~~
+	~~~~~~~~~~~~~~~~~~::::::::::::::::::::::::..~~~~~~~~~.~~~~~~
+	~~~~~~~~~~~~~~~~::::::::::::::::::::::::::::.~~~~~~~~~~~~~~~
+	~~~~~~~~~~~~~~:::::::::::::::::::::::::::::::..~~~~~~~~~~~~~
+	~~~~~~~~~~~~~::::::::~~~~~:~~~~~::...~::::::::~~~~~~~~~~~~~~
+	~~~~~~~~~~~~::::::::~~:::~~~:::...:::+.::::::::~~~~~~~~~~~~~
+	~~~~~~~~~~~::::::::~~::::~~~:::+..:::::~::::::::~~~~~~~~~~~~
+	~~~~~~~~~~~:::::::~~:::::~~~:::.:.~::::~~:::::::~~~~~~~~~~~~
+	~~~~~~~~~~::::::::~~::::~~:~~::~:.+::::~~::::::::~~~~~~~~~~~
+	~~~~~~~~~~::::::::~~:::::~:~:::~:~~::::~~::::::::~~~~~~~~~~~
+	~~~~~~~~~~:::::::::~:::::~~~:::~~~:::::~~::::::::~~~~~~~~~~~
+	~~~~~~~~~~:::::::::~~::::~~~:::~~~::::~~:::::::::~~~~~~~~~~~
+	~~~~~~~~~~::::::::::~~:::~~~:::~~~:::~~::::::::::~~~~~~~....
+	~~~~~~~~~~::::~~:::::~~:~~:~~~~~:~~~~~::::~~~::::~.~~~~~....
+	~~~~~~~~~~::~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.:::.~~~~~...::
+	~~~~~~~~~~~:::~~:::::::::::::::::::::::::::~~::::.~~~~~:::::
+	~~~~~~~~~~~~:::~::::::::::::::::::::::::::~=::::..~~~~::::::
+	~~~~~~~~~~~~~::::::::::::::::::::::::::::::::::.:~~~~~::::::
+	~~~~~~~~~~~~~:::::::::::::::::::::::::::::::::::~~~~~:::::::
+	~~~~~~~~~~~~~~~::::::::::::::::::::::::::::::::~~~~~::::::::
+	::::~~~~:::::~~~::::::::::::::::::::::::::::::::::::::::::::
+	:::::~~::::::::~~~::::::::::::::::::::::::::::::::::::::::::
+	:::::::::::::::::~~~~:::::::::::::::::::::::::::::::::::::::
+	:::::::::::::::::::~~~~~~:::::::::::.:::::::::::::::::::::::
+	::::::::::::::::::::~~~~~~~~~~~~....::::::::::::::::::::::::
+	::::::::::::::::::::~:::::::::::::::::::::::::::::::::::::::
+	::::::::::::::..~~::::::::::::::::::::::::::::::::::::::::::
+	:::::::::::::::.~~~~~~::::::::::::::::::::::::::::::::::::::
+	:::::::::::::::::~~~~~~~~~~~....:::::::::    @Cipherhouse ::
+	:::::::::::::::::~~~~~~~~~~~....:::::::: cipher.labs.coop ::
+	:::::::::::::::::~~~~~~~~~~...::::::::::::::::::::::::::::::
+
+Drugs or Toxicology Screening Selection API
+For Individual and Grouping Screening Orders by Random
+
+Drugs or Toxicology Screening Selection API is an application programmable interface for the service of conducting a screening placement of people, animals or entities for example for drugs, virus or toxin testing. It provides the selection based on either a generated seed or provided one, in reference to the array posted to the API by either GET or POST method of form REST API Posting.
+
+Give it a going over now: http://screening.labs.coop/
+
+Lab Article: http://au.syd.labs.coop/publications/0/drugs-or-toxicology-screening-selection-api/9-50.html
+
+Installation
+
+Download the latest version from Chronolabs API on Source-forge. Unzip the archive you should have a folder named after the API ie. 'jumps'. Copy the contents of this folder to your API root path this is generally a folder called 'public_html' or 'www' on your FTP service of your website. IF there is an /sql folder you will have to make the database with example MySQL Workbench and then set the database user-name in the /class folder. Log into your CMS and going to the modules/applications installation section, this is generally in your system control area under modules. Click on the icon that represent installing the module. If all has behaved as need be then your module is installed. If your module requires a user licences, keys or a user-name then sign-up to the sites and retrieve your keys or IDs (Links should be provided in the preferences) and paste the values into preferences. Now your right to go!
+
+Upgrading
+
+Download the latest version from Chronolabs on Google code or off source-forge. Unzip the archive you should have a folder called 'htdocs' in the unzipped location. Copy the contents of 'htdocs' folder to your CMS root path this is generally a folder called 'public_html' or 'www' on your FTP service of your website. Log into your CMS and going to the modules/applications installation section, this is generally in your system control area under modules. Click on the icon that represent upgrading the module. Your version number should no longer be in bold and would have changed!
+
+Reporting a Bug
+
+The source-forge tickets section has an area for reporting bugs called issues. Any issue or bug you believe you are having that is not a result of your site services then please report it here. The URL for reporting bugs is as follows: https://sourceforge.net/p/chronolabsapis/tickets/
+
+Please report the following:
+
+ 	a) Version of CMS 
+ 	b) Version of PHP
+ 	c) Version of MySQL
+ 	d) Services Software ie. Apache, Zeus etc.
+ 	e) Version of Software 
+ 	f) Error Messages 
+ 	g) Steps to reproduce 
+ 	e) Contact details for the team to get in touch should they need!
+ 
+
