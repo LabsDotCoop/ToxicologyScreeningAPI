@@ -1,0 +1,178 @@
+<?php
+/**
+ * Chronolabs REST Screening Selector API
+ *
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * @copyright       Chronolabs Cooperative http://labs.coop
+ * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @package         screening
+ * @since           1.0.2
+ * @author          Simon Roberts <meshy@labs.coop>
+ * @version         $Id: functions.php 1000 2013-06-07 01:20:22Z mynamesnot $
+ * @subpackage		api
+ * @description		Screening API Service REST
+ */
+
+	$pu = parse_url($_SERVER['REQUEST_URI']);
+	$source = (isset($_SERVER['HTTPS'])?'https://':'http://').strtolower($_SERVER['HTTP_HOST']).$pu['path'];
+	if (strlen($theip = whitelistGetIP(true))==0)
+		$theip = "127.0.0.1";
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link rel="shortcut icon" type="image/ico" href="<?php echo $source; ?>favicon.ico" />
+<link rel="icon" type="image/png" href="<?php echo $source; ?>icon.png" />
+<link rel="apple-touch-icon" href="<?php echo $source; ?>apple-touch-icon-56x56.png">
+<link rel="apple-touch-icon" sizes="72x72" href="<?php echo $source; ?>apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="<?php echo $source; ?>apple-touch-icon-114x114.png">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Screening Selection API || Chronolabs Cooperative</title>
+<!-- AddThis Smart Layers BEGIN -->
+<!-- Go to http://www.addthis.com/get/smart-layers to customize -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-50f9a1c208996c1d"></script>
+<script type="text/javascript">
+  addthis.layers({
+	'theme' : 'transparent',
+	'share' : {
+	  'position' : 'right',
+	  'numPreferredServices' : 6
+	}, 
+	'follow' : {
+	  'services' : [
+		{'service': 'facebook', 'id': 'chronolabs'},
+		{'service': 'twitter', 'id': 'negativitygear'},
+		{'service': 'linkedin', 'id': 'ceoandfounder'},
+		{'service': 'google_follow', 'id': '111267413375420332318'}
+	  ]
+	},  
+	'whatsnext' : {},  
+	'recommended' : {
+	  'title': 'Recommended for you:'
+	} 
+  });
+</script>
+<!-- AddThis Smart Layers END -->
+<style>
+body {
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size:85%em;
+	background: #a647b7; /* Old browsers */
+	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CiAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjYTY0N2I3IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2VhZTI0NiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
+	background: -moz-linear-gradient(-45deg,  #a647b7 0%, #eae246 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#a647b7), color-stop(100%,#eae246)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(-45deg,  #a647b7 0%,#eae246 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(-45deg,  #a647b7 0%,#eae246 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(-45deg,  #a647b7 0%,#eae246 100%); /* IE10+ */
+	background: linear-gradient(135deg,  #a647b7 0%,#eae246 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a647b7', endColorstr='#eae246',GradientType=1 ); /* IE6-8 fallback on horizontal gradient */
+	text-align:justify;
+}
+.main {
+	border:3px solid #000000;
+	border-radius:15px;
+	background-color:#feeebe;
+	padding:39px 39px 39px 39px;
+	margin:64px 64px 64px 64px;
+	-webkit-box-shadow: 7px 7px 10px 0px rgba(108, 80, 99, 0.72);
+	-moz-box-shadow:    7px 7px 10px 0px rgba(108, 80, 99, 0.72);
+	box-shadow:         7px 7px 10px 0px rgba(108, 80, 99, 0.72);
+}
+h1 {
+	font-weight:bold;
+	font-size:1.42em;
+	background-color:#FFEED9;
+	border-radius:15px;
+	padding:10px 10px 10px 10px;
+	text-shadow: 4px 4px 2px rgba(150, 150, 150, 1);
+}
+h2 {
+	font-weight:500;
+	font-size:1.15em;
+	text-shadow: 4px 4px 2px rgba(150, 150, 150, 1);
+}
+blockquote {
+	margin-left:25px;
+	margin-right:25px;
+	font-family:"Courier New", Courier, monospace;
+	margin-bottom:25px;
+	padding: 25px 25px 25px 25px;
+	border:dotted;
+	background-color:#fefefe;
+	-webkit-box-shadow: 7px 7px 10px 0px rgba(108, 80, 99, 0.72);
+	-moz-box-shadow:    7px 7px 10px 0px rgba(108, 80, 99, 0.72);
+	box-shadow:         7px 7px 10px 0px rgba(108, 80, 99, 0.72);
+	-webkit-border-radius: 14px;
+	-moz-border-radius: 14px;
+	border-radius: 14px;
+	text-shadow: 2px 2px 2px rgba(103, 87, 101, 0.82);
+}
+p {
+	margin-bottom:12px;
+}
+</style>
+</head>
+<?php $number = mt_rand(2,5); ?>
+<body>
+<div class="main">
+    <h1>Screening Selection API Services - Version 1.01</h1>
+    <p>This is an API Service for conducting a screening placement of people, animals or entities for example for drugs, virus or toxin testing. It provides the selection based on either a generated seed or provided one, in reference to the array posted to the API by either GET or POST method of form REST API Posting.</p>
+    <h2>Examples of Calls (Using JSON)</h2>
+    <p>There is a couple of calls to the API which I will explain.</p>
+    <blockquote>For example if you want a call without providing a seed a short handed 400 character length GET method would be returning <?php echo $number; ?> items from the selection of the array :: <a href="<?php echo $source; ?>v1/<?php echo $number; ?>/json.api?person[E0001]=Sam%20Wrought&person[KID69]=Andrew%20Psalia&person[E0002]=Frank%20Darcey&person[A0001]=Nicholas%20Moore&person[B0001]=Jodie%20Coleman&person[C0002]=Roger%20Essig&person[D0004]=Gary%20Arthy&person[F0007]=Emma%20Quine&person[G000X]=Martin%20Ohlson" target="_blank"><?php echo $source; ?>v1/<?php echo $number; ?>/json.api?person[E0001]=Sam%20Wrought&person[KID69]=Andrew%20Psalia&person[E0002]=Frank%20Darcey&person[A0001]=Nicholas%20Moore&person[B0001]=Jodie%20Coleman&person[C0002]=Roger%20Essig&person[D0004]=Gary%20Arthy&person[F0007]=Emma%20Quine&person[G000X]=Martin%20Ohlson</a> or in providing a seed which is a numeric or double floating point/real variable you would do the following :: <a href="<?php echo $source; ?>v1/<?php echo $number; ?>/<?php echo $seed?>/json.api?person[E0001]=Sam%20Wrought&person[KID69]=Andrew%20Psalia&person[E0002]=Frank%20Darcey&person[A0001]=Nicholas%20Moore&person[B0001]=Jodie%20Coleman&person[C0002]=Roger%20Essig&person[D0004]=Gary%20Arthy&person[F0007]=Emma%20Quine&person[G000X]=Martin%20Ohlson" target="_blank"><?php echo $source; ?>v1/<?php echo $number; ?>/<?php echo $seed?>/json.api?person[E0001]=Sam%20Wrought&person[KID69]=Andrew%20Psalia&person[E0002]=Frank%20Darcey&person[A0001]=Nicholas%20Moore&person[B0001]=Jodie%20Coleman&person[C0002]=Roger%20Essig&person[D0004]=Gary%20Arthy&person[F0007]=Emma%20Quine&person[G000X]=Martin%20Ohlson</a>.<br /><br />You don't have to use the variable name 'person' it just has to be a variable passed to the API through GET or POST that is a one element array, the keys will be preserved and returned incase you want to place elements based on employment numbers with names and you can call the variable what you need, the API will detect the variable which is an array passed to it.</blockquote>
+    <h2>Code API Documentation</h2>
+    <p>You can find the phpDocumentor code API documentation at the following path :: <a href="<?php echo $source; ?>docs/" target="_blank"><?php echo $source; ?>docs/</a>. These should outline the source code core functions and classes for the API to function!</p>
+    <h2>RAW Document Output</h2>
+    <p>This is done with the <em>raw.api</em> extension at the end of the url, you replace the example address with either a place, an country either with no spaces in words or country ISO2 or ISO3 code and a name to search for the place on the api</p>
+    <blockquote>
+        <font color="#009900">This is for a <?php echo $number; ?> items returned with a generated seed</font><br/>
+        <em><strong><a href="<?php echo $source; ?>v1/<?php echo $number; ?>/raw.api?person[E0001]=Sam%20Wrought&person[KID69]=Andrew%20Psalia&person[E0002]=Frank%20Darcey&person[A0001]=Nicholas%20Moore&person[B0001]=Jodie%20Coleman&person[C0002]=Roger%20Essig&person[D0004]=Gary%20Arthy&person[F0007]=Emma%20Quine&person[G000X]=Martin%20Ohlson" target="_blank"><?php echo $source; ?>v1/<?php echo $number; ?>/raw.api?person[E0001]=Sam%20Wrought&person[KID69]=Andrew%20Psalia&person[E0002]=Frank%20Darcey&person[A0001]=Nicholas%20Moore&person[B0001]=Jodie%20Coleman&person[C0002]=Roger%20Essig&person[D0004]=Gary%20Arthy&person[F0007]=Emma%20Quine&person[G000X]=Martin%20Ohlson</a></strong></em><br /><br />
+		<font color="#009900">This is for <?php echo $number; ?> items return with a provided seed of <em>'<?php echo $seed?>'</em></font><br/>
+        <em><strong><em><strong><a href="<?php echo $source; ?>v1/<?php echo $number; ?>/<?php echo $seed;?>/raw.api?person[E0001]=Sam%20Wrought&person[KID69]=Andrew%20Psalia&person[E0002]=Frank%20Darcey&person[A0001]=Nicholas%20Moore&person[B0001]=Jodie%20Coleman&person[C0002]=Roger%20Essig&person[D0004]=Gary%20Arthy&person[F0007]=Emma%20Quine&person[G000X]=Martin%20Ohlson" target="_blank"><?php echo $source; ?>v1/<?php echo $number; ?>/<?php echo $seed;?>/raw.api?person[E0001]=Sam%20Wrought&person[KID69]=Andrew%20Psalia&person[E0002]=Frank%20Darcey&person[A0001]=Nicholas%20Moore&person[B0001]=Jodie%20Coleman&person[C0002]=Roger%20Essig&person[D0004]=Gary%20Arthy&person[F0007]=Emma%20Quine&person[G000X]=Martin%20Ohlson</a></strong></em>
+    </blockquote>
+    <h2>HTML Document Output</h2>
+    <p>This is done with the <em>html.api</em> extension at the end of the url, you replace the address with either a place, an country either with no spaces in words or country ISO2 or ISO3 code and a name to search for the place on the api</p>
+    <blockquote>
+        <font color="#009900">This is for a <?php echo $number; ?> items returned with a generated seed</font><br/>
+        <em><strong><a href="<?php echo $source; ?>v1/<?php echo $number; ?>/html.api?person[E0001]=Sam%20Wrought&person[KID69]=Andrew%20Psalia&person[E0002]=Frank%20Darcey&person[A0001]=Nicholas%20Moore&person[B0001]=Jodie%20Coleman&person[C0002]=Roger%20Essig&person[D0004]=Gary%20Arthy&person[F0007]=Emma%20Quine&person[G000X]=Martin%20Ohlson" target="_blank"><?php echo $source; ?>v1/<?php echo $number; ?>/html.api?person[E0001]=Sam%20Wrought&person[KID69]=Andrew%20Psalia&person[E0002]=Frank%20Darcey&person[A0001]=Nicholas%20Moore&person[B0001]=Jodie%20Coleman&person[C0002]=Roger%20Essig&person[D0004]=Gary%20Arthy&person[F0007]=Emma%20Quine&person[G000X]=Martin%20Ohlson</a></strong></em><br /><br />
+		<font color="#009900">This is for <?php echo $number; ?> items return with a provided seed of <em>'<?php echo $seed?>'</em></font><br/>
+        <em><strong><em><strong><a href="<?php echo $source; ?>v1/<?php echo $number; ?>/<?php echo $seed;?>/html.api?person[E0001]=Sam%20Wrought&person[KID69]=Andrew%20Psalia&person[E0002]=Frank%20Darcey&person[A0001]=Nicholas%20Moore&person[B0001]=Jodie%20Coleman&person[C0002]=Roger%20Essig&person[D0004]=Gary%20Arthy&person[F0007]=Emma%20Quine&person[G000X]=Martin%20Ohlson" target="_blank"><?php echo $source; ?>v1/<?php echo $number; ?>/<?php echo $seed;?>/html.api?person[E0001]=Sam%20Wrought&person[KID69]=Andrew%20Psalia&person[E0002]=Frank%20Darcey&person[A0001]=Nicholas%20Moore&person[B0001]=Jodie%20Coleman&person[C0002]=Roger%20Essig&person[D0004]=Gary%20Arthy&person[F0007]=Emma%20Quine&person[G000X]=Martin%20Ohlson</a></strong></em>
+    </blockquote>
+    <h2>Serialisation Document Output</h2>
+    <p>This is done with the <em>serial.api</em> extension at the end of the url, you replace the address with either a place, an country either with no spaces in words or country ISO2 or ISO3 code and a name to search for the place on the api</p>
+    <blockquote>
+        <font color="#009900">This is for a <?php echo $number; ?> items returned with a generated seed</font><br/>
+        <em><strong><a href="<?php echo $source; ?>v1/<?php echo $number; ?>/serial.api?person[E0001]=Sam%20Wrought&person[KID69]=Andrew%20Psalia&person[E0002]=Frank%20Darcey&person[A0001]=Nicholas%20Moore&person[B0001]=Jodie%20Coleman&person[C0002]=Roger%20Essig&person[D0004]=Gary%20Arthy&person[F0007]=Emma%20Quine&person[G000X]=Martin%20Ohlson" target="_blank"><?php echo $source; ?>v1/<?php echo $number; ?>/serial.api?person[E0001]=Sam%20Wrought&person[KID69]=Andrew%20Psalia&person[E0002]=Frank%20Darcey&person[A0001]=Nicholas%20Moore&person[B0001]=Jodie%20Coleman&person[C0002]=Roger%20Essig&person[D0004]=Gary%20Arthy&person[F0007]=Emma%20Quine&person[G000X]=Martin%20Ohlson</a></strong></em><br /><br />
+		<font color="#009900">This is for <?php echo $number; ?> items return with a provided seed of <em>'<?php echo $seed?>'</em></font><br/>
+        <em><strong><em><strong><a href="<?php echo $source; ?>v1/<?php echo $number; ?>/<?php echo $seed;?>/serial.api?person[E0001]=Sam%20Wrought&person[KID69]=Andrew%20Psalia&person[E0002]=Frank%20Darcey&person[A0001]=Nicholas%20Moore&person[B0001]=Jodie%20Coleman&person[C0002]=Roger%20Essig&person[D0004]=Gary%20Arthy&person[F0007]=Emma%20Quine&person[G000X]=Martin%20Ohlson" target="_blank"><?php echo $source; ?>v1/<?php echo $number; ?>/<?php echo $seed;?>/serial.api?person[E0001]=Sam%20Wrought&person[KID69]=Andrew%20Psalia&person[E0002]=Frank%20Darcey&person[A0001]=Nicholas%20Moore&person[B0001]=Jodie%20Coleman&person[C0002]=Roger%20Essig&person[D0004]=Gary%20Arthy&person[F0007]=Emma%20Quine&person[G000X]=Martin%20Ohlson</a></strong></em>
+    </blockquote>
+    <h2>JSON Document Output</h2>
+    <p>This is done with the <em>json.api</em> extension at the end of the url, you replace the address with either a place, an country either with no spaces in words or country ISO2 or ISO3 code and a name to search for the place on the api</p>
+    <blockquote>
+        <font color="#009900">This is for a <?php echo $number; ?> items returned with a generated seed</font><br/>
+        <em><strong><a href="<?php echo $source; ?>v1/<?php echo $number; ?>/json.api?person[E0001]=Sam%20Wrought&person[KID69]=Andrew%20Psalia&person[E0002]=Frank%20Darcey&person[A0001]=Nicholas%20Moore&person[B0001]=Jodie%20Coleman&person[C0002]=Roger%20Essig&person[D0004]=Gary%20Arthy&person[F0007]=Emma%20Quine&person[G000X]=Martin%20Ohlson" target="_blank"><?php echo $source; ?>v1/<?php echo $number; ?>/json.api?person[E0001]=Sam%20Wrought&person[KID69]=Andrew%20Psalia&person[E0002]=Frank%20Darcey&person[A0001]=Nicholas%20Moore&person[B0001]=Jodie%20Coleman&person[C0002]=Roger%20Essig&person[D0004]=Gary%20Arthy&person[F0007]=Emma%20Quine&person[G000X]=Martin%20Ohlson</a></strong></em><br /><br />
+		<font color="#009900">This is for <?php echo $number; ?> items return with a provided seed of <em>'<?php echo $seed?>'</em></font><br/>
+        <em><strong><em><strong><a href="<?php echo $source; ?>v1/<?php echo $number; ?>/<?php echo $seed;?>/json.api?person[E0001]=Sam%20Wrought&person[KID69]=Andrew%20Psalia&person[E0002]=Frank%20Darcey&person[A0001]=Nicholas%20Moore&person[B0001]=Jodie%20Coleman&person[C0002]=Roger%20Essig&person[D0004]=Gary%20Arthy&person[F0007]=Emma%20Quine&person[G000X]=Martin%20Ohlson" target="_blank"><?php echo $source; ?>v1/<?php echo $number; ?>/<?php echo $seed;?>/json.api?person[E0001]=Sam%20Wrought&person[KID69]=Andrew%20Psalia&person[E0002]=Frank%20Darcey&person[A0001]=Nicholas%20Moore&person[B0001]=Jodie%20Coleman&person[C0002]=Roger%20Essig&person[D0004]=Gary%20Arthy&person[F0007]=Emma%20Quine&person[G000X]=Martin%20Ohlson</a></strong></em>
+    </blockquote>
+    <h2>XML Document Output</h2>
+    <p>This is done with the <em>xml.api</em> extension at the end of the url, you replace the address with either a place, an country either with no spaces in words or country ISO2 or ISO3 code and a name to search for the place on the api</p>
+        <blockquote>
+        <font color="#009900">This is for a <?php echo $number; ?> items returned with a generated seed</font><br/>
+        <em><strong><a href="<?php echo $source; ?>v1/<?php echo $number; ?>/xml.api?person[E0001]=Sam%20Wrought&person[KID69]=Andrew%20Psalia&person[E0002]=Frank%20Darcey&person[A0001]=Nicholas%20Moore&person[B0001]=Jodie%20Coleman&person[C0002]=Roger%20Essig&person[D0004]=Gary%20Arthy&person[F0007]=Emma%20Quine&person[G000X]=Martin%20Ohlson" target="_blank"><?php echo $source; ?>v1/<?php echo $number; ?>/xml.api?person[E0001]=Sam%20Wrought&person[KID69]=Andrew%20Psalia&person[E0002]=Frank%20Darcey&person[A0001]=Nicholas%20Moore&person[B0001]=Jodie%20Coleman&person[C0002]=Roger%20Essig&person[D0004]=Gary%20Arthy&person[F0007]=Emma%20Quine&person[G000X]=Martin%20Ohlson</a></strong></em><br /><br />
+		<font color="#009900">This is for <?php echo $number; ?> items return with a provided seed of <em>'<?php echo $seed?>'</em></font><br/>
+        <em><strong><em><strong><a href="<?php echo $source; ?>v1/<?php echo $number; ?>/<?php echo $seed;?>/xml.api?person[E0001]=Sam%20Wrought&person[KID69]=Andrew%20Psalia&person[E0002]=Frank%20Darcey&person[A0001]=Nicholas%20Moore&person[B0001]=Jodie%20Coleman&person[C0002]=Roger%20Essig&person[D0004]=Gary%20Arthy&person[F0007]=Emma%20Quine&person[G000X]=Martin%20Ohlson" target="_blank"><?php echo $source; ?>v1/<?php echo $number; ?>/<?php echo $seed;?>/xml.api?person[E0001]=Sam%20Wrought&person[KID69]=Andrew%20Psalia&person[E0002]=Frank%20Darcey&person[A0001]=Nicholas%20Moore&person[B0001]=Jodie%20Coleman&person[C0002]=Roger%20Essig&person[D0004]=Gary%20Arthy&person[F0007]=Emma%20Quine&person[G000X]=Martin%20Ohlson</a></strong></em>
+    </blockquote>
+    <h2>Limits</h2>
+    <p>There is a limit of <?php echo MAXIMUM_QUERIES; ?> queries per hour. This will reset every hour and the response of a 404 document not found will be provided if you have exceeded your query limits. This is not ammendable or changable by default but you can apply by emailing and exchanging something to have a group of IPv4 or IPv6 addresses whitelisted so there is no limits by emailing the Author. This is only so this service isn't abused!!</p>
+    <h2>The Author</h2>
+    <p>This was developed by Simon Roberts in 2014 and is part of the Chronolabs System and Xortify and offering on-going support to existing libraries. if you need to contact simon you can do so at the following address <a href="mailto:meshy@labs.coop">meshy@labs.coop</a></p></body>
+</div>
+</html>
+<?php 
